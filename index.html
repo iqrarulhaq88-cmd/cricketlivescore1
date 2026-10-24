@@ -154,9 +154,23 @@
             }, 3000);
         }
 
-        /**
-         * Dynamic Team Switching Example (API Integration Placeholder)
-         */
+        async function updateLiveScore() {
+  const apiKey = '15c8fbe5-7a8a-4834-804b-3e348200b74c';
+  const url = `https://cricket.data.org/api/v1/scores?apikey=${apiKey}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    document.getElementById('totalScore').innerText = data.score;
+    document.getElementById('strikerName').innerText = data.striker;
+  } catch (error) {
+    console.error('Error fetching live score:', error);
+  }
+}
+
+updateLiveScore();
+setInterval(updateLiveScore, 30000);
         let isDefaultTeam = true;
         function switchTeams() {
             if (isDefaultTeam) {
